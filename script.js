@@ -490,3 +490,82 @@ document.addEventListener("DOMContentLoaded", () => {
   );
 
 });
+
+
+/* =========================
+   MENU IMAGE SLIDER
+========================= */
+
+const menuOpenBtn = document.getElementById("menuOpenBtn");
+const menuSlider = document.getElementById("menuSlider");
+
+const menuTrack = document.getElementById("menuTrack");
+
+const prevMenu = document.getElementById("prevMenu");
+const nextMenu = document.getElementById("nextMenu");
+
+const menuCounter = document.getElementById("menuCounter");
+
+const menuSlides = document.querySelectorAll(".menu-slide");
+
+let currentMenu = 0;
+
+const totalMenus = menuSlides.length;
+
+
+// Open Menu Slider
+
+menuOpenBtn.addEventListener("click", () => {
+
+  menuSlider.classList.add("active");
+  menuCounter.classList.add("active");
+
+  menuSlider.scrollIntoView({
+    behavior: "smooth",
+    block: "center"
+  });
+
+});
+
+
+// Update Slider
+
+function updateMenuSlider() {
+
+  menuTrack.style.transform =
+    `translateX(-${currentMenu * 100}%)`;
+
+  menuCounter.textContent =
+    `${String(currentMenu + 1).padStart(2, "0")} / ${String(totalMenus).padStart(2, "0")}`;
+
+}
+
+
+// Next Menu
+
+nextMenu.addEventListener("click", () => {
+
+  currentMenu++;
+
+  if (currentMenu >= totalMenus) {
+    currentMenu = 0;
+  }
+
+  updateMenuSlider();
+
+});
+
+
+// Previous Menu
+
+prevMenu.addEventListener("click", () => {
+
+  currentMenu--;
+
+  if (currentMenu < 0) {
+    currentMenu = totalMenus - 1;
+  }
+
+  updateMenuSlider();
+
+});
